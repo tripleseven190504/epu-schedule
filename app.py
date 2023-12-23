@@ -103,7 +103,7 @@ def return_schedule():
     global schedule_html_content
     if schedule_html_content is None:
         # get_schedule('bimat', 'bimat')
-        pass
+        pass # remove it if u want to clone
     return schedule_html_content
 
 
