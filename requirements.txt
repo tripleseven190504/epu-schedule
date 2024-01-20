@@ -1,9 +1,0 @@
-pytesseract
-requests
-beautifulsoup4
-Pillow
-selenium
-schedule
-Flask
-Flask-Cors
-gunicorn
