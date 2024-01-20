@@ -28,7 +28,7 @@ jobs:
       env:
         USERNAME: ${{ secrets.USERNAME }}
         PASSWORD: ${{ secrets.PASSWORD }}
-      run: node your_script.js
+      run: node index.js
 
     - name: Commit and Push Changes
       run: |
