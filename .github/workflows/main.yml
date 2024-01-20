@@ -2,7 +2,7 @@ name: Update index.html
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: "0 */6 * * *"
   workflow_dispatch:
   push:
     branches:
@@ -13,30 +13,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Git
+      - name: Set up Node.js
+        uses: actions/setup-node@v4.0.1
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run script
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+        run: node index.js
+
+      - name: Set up Git
         run: |
           git config --global user.name "tripleseven190504"
           git config --global user.email "tripleseven190504@gmail.com"
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v4.0.1
-      with:
-        node-version: '18'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run script
-      env:
-        USERNAME: ${{ secrets.USERNAME }}
-        PASSWORD: ${{ secrets.PASSWORD }}
-      run: node index.js
-
-    - name: Commit and Push Changes
-      run: |
-        git add index.html
-        git commit -m "Update index.html"
-        git push
+          git add index.html
+          git commit -m "Update index.html"
+          git push
