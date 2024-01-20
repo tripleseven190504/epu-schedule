@@ -22,7 +22,9 @@ jobs:
           node-version: "18"
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          git pull
 
       - name: Run script
         env:
@@ -30,10 +32,21 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
         run: node index.js
 
+      - name: Check for changes in index.html
+        id: check_changes
+        run: |
+          if git diff --exit-code; then
+            echo "No changes in index.html. Exiting..."
+            exit 0
+          fi
+        continue-on-error: true
+
       - name: Set up Git
+        if: steps.check_changes.outcome == 'success'
         run: |
           git config --global user.name "tripleseven190504"
           git config --global user.email "tripleseven190504@gmail.com"
           git add index.html
           git commit -m "Update index.html"
+          git push
           git push
