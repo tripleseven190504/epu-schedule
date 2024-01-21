@@ -61,7 +61,7 @@ async function getScheduleHtmlContent(page) {
     const scheduleHtmlContent = await page.evaluate(scheduleElement => {
         return scheduleElement ? scheduleElement.innerHTML : null;
     }, scheduleElement);
-    const externalCssLink = '<link rel="stylesheet" href="style.css">';
+    const externalCssLink = '<link rel="stylesheet" href="https://raw.githubusercontent.com/tripleseven190504/epu-schedule/main/style.css">';
     const viewportMetaTag = '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
     const faviconAndTitle = `
         <link rel="icon" href="https://raw.githubusercontent.com/tripleseven190504/epu-schedule/main/favicon.ico" type="image/x-icon">
