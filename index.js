@@ -66,6 +66,19 @@ async function getScheduleHtmlContent(page) {
     const faviconAndTitle = `
         <link rel="icon" href="https://raw.githubusercontent.com/tripleseven190504/epu-schedule/main/favicon.ico" type="image/x-icon">
         <title>EPU Schedule</title>
+        <style>
+        @media only screen and (max-width: 1200px) {
+            body {
+                transform: rotate(90deg);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                transform: rotate(90deg);
+            }
+        }
+        </style>
     `;
     const finalHtmlContent = `
         <head>
