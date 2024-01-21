@@ -26,6 +26,7 @@ jobs:
           git config --global user.name "tripleseven190504"
           git config --global user.email "tripleseven190504@gmail.com"
           git pull
+          rm index.html
           npm install
 
       - name: Run script
