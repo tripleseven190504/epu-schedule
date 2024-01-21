@@ -1,12 +1,12 @@
 name: Update index.html
 
 on:
-  schedule:
-    - cron: "0 */6 * * *"
-  workflow_dispatch:
   push:
     branches:
       - main
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
 
 jobs:
   build:
@@ -23,8 +23,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
+          git config --global user.name "tripleseven190504"
+          git config --global user.email "tripleseven190504@gmail.com"
           git pull
+          npm install
 
       - name: Run script
         env:
@@ -35,18 +37,18 @@ jobs:
       - name: Check for changes in index.html
         id: check_changes
         run: |
-          if git diff --exit-code; then
+          if ! git diff --quiet; then
+            echo "Changes detected in index.html. Proceeding with the commit and push..."
+          else
             echo "No changes in index.html. Exiting..."
             exit 0
           fi
-        continue-on-error: true
 
       - name: Set up Git
         if: steps.check_changes.outcome == 'success'
         run: |
-          git config --global user.name "tripleseven190504"
-          git config --global user.email "tripleseven190504@gmail.com"
-          git add index.html
-          git commit -m "Update index.html"
-          git push
+          echo "Cập nhật vào: $(TZ='Asia/Ho_Chi_Minh' date)" >> index.html
+          echo "  " >> index.html
+          git add .
+          git commit -m "Update index.html" || echo "No changes to commit"
           git push
