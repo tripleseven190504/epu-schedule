@@ -61,8 +61,22 @@ async function getScheduleHtmlContent(page) {
     const scheduleHtmlContent = await page.evaluate(scheduleElement => {
         return scheduleElement ? scheduleElement.innerHTML : null;
     }, scheduleElement);
+    const externalCssLink = '<link rel="stylesheet" href="style.css">';
+        const faviconAndTitle = `
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <title>EPU Schedule</title>
+    `;
+    const finalHtmlContent = `
+        <head>
+            ${externalCssLink}
+            ${faviconAndTitle}
+        </head>
+        <body>
+            ${scheduleHtmlContent}
+        </body>
+    `;
 
-    return scheduleHtmlContent;
+    return finalHtmlContent;
 }
 const main = async () => {
     const browser = await puppeteer.launch({ headless: true });
@@ -70,8 +84,8 @@ const main = async () => {
 
     try {
         await page.goto('https://sinhvien.epu.edu.vn/');
-        await page.type('#ctl00_ucRight1_txtMaSV', process.env.USERNAME);
-        await page.type('#ctl00_ucRight1_txtMatKhau', process.env.PASSWORD);
+        await page.type('#ctl00_ucRight1_txtMaSV', '22810850032');
+        await page.type('#ctl00_ucRight1_txtMatKhau', 'dolinh1311@');
 
         const cookies = await page.cookies();
         const userAgent = await page.evaluate(() => navigator.userAgent);
