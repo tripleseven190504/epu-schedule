@@ -124,7 +124,7 @@ const main = async () => {
         await page.waitForNavigation();
         await navigateToSchedulePage(page);
         const scheduleHtmlContent = await getScheduleHtmlContent(page);
-        fs.writeFileSync('index.html', scheduleHtmlContent);
+        await fs.promises.writeFile('index.html', scheduleHtmlContent);
     } catch (error) {
         process.exit(0);
     } finally {
