@@ -47,7 +47,7 @@ jobs:
       - name: Set up Git
         if: steps.check_changes.outcome == 'success'
         run: |
-          echo "Cập nhật vào: $(TZ='Asia/Ho_Chi_Minh' date)" >> index.html
+          echo "Cập nhật vào: $(TZ='Asia/Ho_Chi_Minh' date '+%H:%M - %d/%m')" >> index.html
           echo "  " >> index.html
           git add .
           git commit -m "Update index.html" || echo "No changes to commit"
