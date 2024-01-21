@@ -67,15 +67,17 @@ async function getScheduleHtmlContent(page) {
         <link rel="icon" href="https://raw.githubusercontent.com/tripleseven190504/epu-schedule/main/favicon.ico" type="image/x-icon">
         <title>EPU Schedule</title>
         <style>
-        @media only screen and (max-width: 1200px) {
+        @media only screen and (max-width: 1080px) {
             body {
                 transform: rotate(90deg);
+                width: 150%;
             }
         }
 
         @media screen and (max-width: 768px) {
             body {
                 transform: rotate(90deg);
+                width: 150%;
             }
         }
         </style>
