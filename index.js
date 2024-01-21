@@ -84,8 +84,8 @@ const main = async () => {
 
     try {
         await page.goto('https://sinhvien.epu.edu.vn/');
-        await page.type('#ctl00_ucRight1_txtMaSV', '22810850032');
-        await page.type('#ctl00_ucRight1_txtMatKhau', 'dolinh1311@');
+        await page.type('#ctl00_ucRight1_txtMaSV', process.env.USERNAME);
+        await page.type('#ctl00_ucRight1_txtMatKhau', process.env.PASSWORD);
 
         const cookies = await page.cookies();
         const userAgent = await page.evaluate(() => navigator.userAgent);
