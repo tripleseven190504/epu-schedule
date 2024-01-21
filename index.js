@@ -62,12 +62,14 @@ async function getScheduleHtmlContent(page) {
         return scheduleElement ? scheduleElement.innerHTML : null;
     }, scheduleElement);
     const externalCssLink = '<link rel="stylesheet" href="style.css">';
-        const faviconAndTitle = `
+    const viewportMetaTag = '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+    const faviconAndTitle = `
         <link rel="icon" href="https://raw.githubusercontent.com/tripleseven190504/epu-schedule/main/favicon.ico" type="image/x-icon">
         <title>EPU Schedule</title>
     `;
     const finalHtmlContent = `
         <head>
+            ${viewportMetaTag}
             ${externalCssLink}
             ${faviconAndTitle}
         </head>

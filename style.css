@@ -25,6 +25,18 @@ body {
     font-weight: normal;
 }
 
+@media only screen and (max-width: 1200px) {
+    body {
+        rotate: 90deg;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        rotate: 90deg;
+    }
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
