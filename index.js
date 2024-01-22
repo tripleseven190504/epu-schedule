@@ -6,8 +6,10 @@ const FormData = require('form-data');
 const readImageFile = async (filePath) => {
     try {
         const data = await fs.promises.readFile(filePath);
+        console.log('Image file read successfully:', filePath);
         return data;
     } catch (err) {
+        console.error('Error reading image file:', err);
         throw err;
     }
 };
@@ -27,6 +29,7 @@ const postImage = async (imagePath, endpointUrl) => {
                 ...formData.getHeaders(),
             },
         });
+        console.log('Image successfully posted:', response.data);
 
         const regexPattern = /",\[\[(\[".*?"\])\],"/;
         const match = response.data.match(regexPattern);
@@ -39,6 +42,7 @@ const postImage = async (imagePath, endpointUrl) => {
             }
         }
     } catch (error) {
+        console.error('Error posting image:', error);
         process.exit(0);
     }
 };
@@ -105,10 +109,14 @@ const main = async () => {
         await page.type('#ctl00_ucRight1_txtSercurityCode', captchaText);
         await page.keyboard.press('Enter');
         await page.waitForNavigation();
+        console.log('Navigating to the schedule page...');
         await navigateToSchedulePage(page);
+        console.log('Getting schedule HTML content...');
         const scheduleHtmlContent = await getScheduleHtmlContent(page);
         await fs.promises.writeFile('index.html', scheduleHtmlContent);
+        console.log('Process completed successfully!');
     } catch (error) {
+        console.error('Error in main function:', error);
         process.exit(0);
     } finally {
         await browser.close();
