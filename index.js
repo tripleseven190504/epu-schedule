@@ -29,7 +29,7 @@ const postImage = async (imagePath, endpointUrl) => {
                 ...formData.getHeaders(),
             },
         });
-        console.log('Image successfully posted:', response.data);
+        console.log('Image successfully posted!');
 
         const regexPattern = /",\[\[(\[".*?"\])\],"/;
         const match = response.data.match(regexPattern);
