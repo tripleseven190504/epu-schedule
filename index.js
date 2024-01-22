@@ -116,8 +116,9 @@ const main = async () => {
         await fs.promises.writeFile('index.html', scheduleHtmlContent);
         console.log('Process completed successfully!');
     } catch (error) {
-        console.error('Error in main function:', error);
-        process.exit(0);
+        console.error('Error in main function:');
+        await browser.close();
+        main();
     } finally {
         await browser.close();
     }
