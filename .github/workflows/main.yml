@@ -1,4 +1,4 @@
-name: Update index.html
+name: Update Schedule
 
 on:
   push:
@@ -14,7 +14,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.1
+
+      - name: Cache dependencies
+        uses: actions/cache@v4.0.0
+        with:
+          path: |
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Set up Node.js
         uses: actions/setup-node@v4.0.1
@@ -27,28 +36,22 @@ jobs:
           git config --global user.email "tripleseven190504@gmail.com"
           git pull
           npm install
-
-      - name: Run script
         env:
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
-        run: node index.js
 
-      - name: Check for changes in index.html
-        id: check_changes
-        run: |
-          if ! git diff --quiet; then
-            echo "Changes detected in index.html. Proceeding with the commit and push..."
-          else
-            echo "No changes in index.html. Exiting..."
-            exit 0
-          fi
+      - name: Update file index.html
+        run: node index.js
 
       - name: Set up Git
         if: steps.check_changes.outcome == 'success'
         run: |
-          echo "Cập nhật vào: $(TZ='Asia/Ho_Chi_Minh' date '+%H:%M - %d/%m')" >> index.html
-          echo "  " >> index.html
-          git add .
-          git commit -m "Update index.html" || echo "No changes to commit"
-          git push
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Cập nhật vào: $(TZ='Asia/Ho_Chi_Minh' date '+%H:%M - %d/%m')" >> index.html
+            echo "  " >> index.html
+            git add .
+            git commit -m "Update index.html" || echo "No changes to commit"
+            git push
+          else
+            echo "No changes detected. Skipping commit and push."
+          fi
