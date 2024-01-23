@@ -32,15 +32,10 @@ jobs:
           npm install
           node index.js
 
-      - name: Set up Git
-        if: steps.check_changes.outcome == 'success'
+      - name: Commit and push
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "Cập nhật vào: $(TZ='Asia/Ho_Chi_Minh' date '+%H:%M - %d/%m')" >> index.html
-            echo "  " >> index.html
-            git add .
-            git commit -m "Update index.html" || echo "No changes to commit"
-            git push
-          else
-            echo "No changes detected. Skipping commit and push."
-          fi
+          echo "Cập nhật vào: $(TZ='Asia/Ho_Chi_Minh' date '+%H:%M - %d/%m')" >> index.html
+          echo "  " >> index.html
+          git add .
+          git commit -m "Update index.html" || echo "No changes to commit"
+          git push
