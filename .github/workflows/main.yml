@@ -30,18 +30,16 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Install dependencies
+      - name: Update index.html
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
         run: |
           git config --global user.name "tripleseven190504"
           git config --global user.email "tripleseven190504@gmail.com"
           git pull
           npm install
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-
-      - name: Update file index.html
-        run: node index.js
+          run: node index.js
 
       - name: Set up Git
         if: steps.check_changes.outcome == 'success'
