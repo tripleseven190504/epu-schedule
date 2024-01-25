@@ -43,13 +43,36 @@ button {
     color: #f8f8f2;
     padding: 10px 20px;
     font-size: 16px;
+    font-weight: bold;
+    text-align: center;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin: 5px;
+    transition: all 0.3s ease;
 }
 
 button:hover {
     background-color: rgb(83, 128, 115);
     color: yellow !important;
+}
+
+.current-date:hover {
+    background-color: #003d7d !important;
+    color: yellow;
+}
+
+.div-ChiTietLich th:hover,
+th:hover {
+    background-color: #003d7d !important;
+    color: yellow;
+}
+
+table:hover {
+    border-color: blue;
+}
+
+td div:hover {
+    background-color: #b3d9ff;
+    box-shadow: 5px 5px 15px rgb(131, 131, 131);
 }
