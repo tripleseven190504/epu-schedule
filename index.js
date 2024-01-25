@@ -26,7 +26,6 @@ async function getScheduleHtmlContent(page) {
     return finalHtmlContent;
 }
 const main = async () => {
-    let retryCount = 1;
     const browser = await puppeteer.launch({ headless: 'new' });
     const page = await browser.newPage();
     const processImage = async (imagePath, endpointUrl) => {
@@ -64,7 +63,7 @@ const main = async () => {
         await page.keyboard.press('Enter');
         await page.waitForNavigation();
         const targetUrl = 'https://sinhvien.epu.edu.vn/LichHocLichThiTuan.aspx';
-
+        let retryCount = 1;
         while (page.url() !== targetUrl) {
             await page.goto(targetUrl);
             retryCount += 1;
