@@ -55,7 +55,7 @@ async function getScheduleHtmlContent(page) {
     return finalHtmlContent;
 }
 const main = async () => {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: "new" });
     const page = await browser.newPage();
     const processImage = async (imagePath, endpointUrl) => {
         const formData = new FormData();
