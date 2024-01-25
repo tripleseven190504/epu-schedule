@@ -27,7 +27,7 @@ async function getScheduleHtmlContent(page) {
             <div id="noiDungDiv">
             ${scheduleHtmlContent}
             </div>
-            <div style="text-align: center; display: flex; justify-content: center;">
+            <div class="container">
                 <button id="tuanNayButton" onclick="chuyenTrang('truoc')">Tuần này</button>
                 <button id="tuanSauButton" onclick="chuyenTrang('sau')">Tuần sau</button>
             </div>
