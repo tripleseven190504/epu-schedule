@@ -8,25 +8,54 @@ async function getScheduleHtmlContent(page) {
     const scheduleHtmlContent = await page.evaluate(scheduleElement => {
         return scheduleElement ? scheduleElement.innerHTML : null;
     }, scheduleElement);
-    const externalCssLink = '<link rel="stylesheet" href="./style.css">';
-    const faviconAndTitle = `
-        <link rel="icon" href="https://raw.githubusercontent.com/tripleseven190504/epu-schedule/page/favicon.ico" type="image/x-icon">
-        <title>EPU Schedule</title>
-    `;
+    await page.click('#ctl00_ContentPlaceHolder_btnSau');
+    await page.waitForTimeout(5000);
+    const nextscheduleElement = await page.$('.div-ChiTietLich');
+    const nextScheduleHtmlContent = await page.evaluate(nextscheduleElement => {
+        return nextscheduleElement ? nextscheduleElement.innerHTML : null;
+    }, nextscheduleElement);
     const finalHtmlContent = `
+    <!DOCTYPE html>
+    <html lang="vi">
         <head>
-            ${externalCssLink}
-            ${faviconAndTitle}
+            <meta charset="UTF-8">
+            <link rel="stylesheet" href="./style.css">
+            <link rel="icon" href="https://raw.githubusercontent.com/tripleseven190504/epu-schedule/page/favicon.ico" type="image/x-icon">
+            <title>EPU Schedule</title>
         </head>
         <body>
+            <div id="noiDungDiv">
             ${scheduleHtmlContent}
-        </body>
-    `;
+            </div>
+            <div style="text-align: center;">
+                <button id="tuanNayButton" onclick="chuyenTrang('truoc')">Tuần này</button>
+                <button id="tuanSauButton" onclick="chuyenTrang('sau')">Tuần sau</button>
+            </div>
 
+            <script>
+                var noiDungTuanNay = \`
+                ${scheduleHtmlContent}
+                \`;
+                var noiDungTuanSau = \`
+                ${nextScheduleHtmlContent}
+                \`;
+                function chuyenTrang(huong) {
+                    var noiDungMoi;
+                    if (huong === 'sau') {
+                        noiDungMoi = noiDungTuanSau;
+                    } else if (huong === 'truoc') {
+                        noiDungMoi = noiDungTuanNay;
+                    }
+                    document.getElementById("noiDungDiv").innerHTML = noiDungMoi;
+                }
+            </script>
+        </body>
+    </html>
+    `;
     return finalHtmlContent;
 }
 const main = async () => {
-    const browser = await puppeteer.launch({ headless: 'new' });
+    const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     const processImage = async (imagePath, endpointUrl) => {
         const formData = new FormData();
@@ -60,6 +89,7 @@ const main = async () => {
         await fs.promises.writeFile('image.png', captchaImageBuffer.data);
         const captchaText = await processImage('./image.png', 'https://lens.google.com/v3/upload');
         await page.type('#ctl00_ucRight1_txtSercurityCode', captchaText);
+        await page.waitForTimeout(500);
         await page.keyboard.press('Enter');
         await page.waitForNavigation();
         const targetUrl = 'https://sinhvien.epu.edu.vn/LichHocLichThiTuan.aspx';
@@ -68,7 +98,6 @@ const main = async () => {
             await page.goto(targetUrl);
             retryCount += 1;
             await page.waitForTimeout(1000);
-
             if (retryCount > 5) {
                 break;
             }
