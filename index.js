@@ -3,63 +3,6 @@ const axios = require('axios');
 const fs = require('fs');
 const FormData = require('form-data');
 
-const readImageFile = async (filePath) => {
-    try {
-        const data = await fs.promises.readFile(filePath);
-        console.log('Image file read successfully:', filePath);
-        return data;
-    } catch (err) {
-        console.error('Error reading image file:', err);
-        throw err;
-    }
-};
-
-const postImage = async (imagePath, endpointUrl) => {
-    try {
-        const imageBuffer = await readImageFile(imagePath);
-
-        const formData = new FormData();
-        formData.append('encoded_image', imageBuffer, {
-            filename: 'image.jpg',
-            contentType: 'image/jpeg',
-        });
-
-        const response = await axios.post(endpointUrl, formData, {
-            headers: {
-                ...formData.getHeaders(),
-            },
-        });
-        console.log('Image successfully posted!');
-
-        const regexPattern = /",\[\[(\[".*?"\])\],"/;
-        const match = response.data.match(regexPattern);
-
-        if (match && match[1]) {
-            const extractedData = JSON.parse(match[1]);
-            if (Array.isArray(extractedData) && extractedData.length > 0) {
-                const firstValue = extractedData[0];
-                return firstValue;
-            }
-        }
-    } catch (error) {
-        console.error('Error posting image:', error);
-        process.exit(0);
-    }
-};
-async function navigateToSchedulePage(page) {
-    let retryCount = 1;
-    const targetUrl = 'https://sinhvien.epu.edu.vn/LichHocLichThiTuan.aspx';
-
-    while (page.url() !== targetUrl) {
-        await page.goto(targetUrl);
-        retryCount += 1;
-        await page.waitForTimeout(1000);
-
-        if (retryCount > 5) {
-            break;
-        }
-    }
-}
 async function getScheduleHtmlContent(page) {
     const scheduleElement = await page.$('.div-ChiTietLich');
     const scheduleHtmlContent = await page.evaluate(scheduleElement => {
@@ -67,7 +10,7 @@ async function getScheduleHtmlContent(page) {
     }, scheduleElement);
     const externalCssLink = '<link rel="stylesheet" href="./style.css">';
     const faviconAndTitle = `
-        <link rel="icon" href="https://raw.githubusercontent.com/tripleseven190504/epu-schedule/main/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="https://raw.githubusercontent.com/tripleseven190504/epu-schedule/page/favicon.ico" type="image/x-icon">
         <title>EPU Schedule</title>
     `;
     const finalHtmlContent = `
@@ -83,41 +26,63 @@ async function getScheduleHtmlContent(page) {
     return finalHtmlContent;
 }
 const main = async () => {
-    const browser = await puppeteer.launch({ headless: true });
+    let retryCount = 1;
+    const browser = await puppeteer.launch({ headless: 'new' });
     const page = await browser.newPage();
+    const processImage = async (imagePath, endpointUrl) => {
+        const formData = new FormData();
+        const data = await fs.promises.readFile(imagePath);
+        console.log('Đang đọc captcha', imagePath);
+        formData.append('encoded_image', data, 'image.jpg');
 
+        const response = await axios.post(endpointUrl, formData, {
+            headers: {
+                ...formData.getHeaders(),
+            },
+        });
+        console.log('Đọc captcha thành công');
+        const regexPattern = /",\[\[(\[".*?"\])\],"/;
+        const match = response.data.match(regexPattern);
+        if (match && match[1]) {
+            const extractedData = JSON.parse(match[1]);
+            if (Array.isArray(extractedData) && extractedData.length > 0) {
+                const firstValue = extractedData[0];
+                return firstValue;
+            }
+        }
+    };
     try {
         await page.goto('https://sinhvien.epu.edu.vn/');
         await page.type('#ctl00_ucRight1_txtMaSV', process.env.USERNAME);
         await page.type('#ctl00_ucRight1_txtMatKhau', process.env.PASSWORD);
-
-        const cookies = await page.cookies();
-        const userAgent = await page.evaluate(() => navigator.userAgent);
-        const session = axios.create({
-            headers: {
-                'User-Agent': userAgent,
-                'Cookie': cookies.map(cookie => `${cookie.name}=${cookie.value}`).join('; '),
-            },
-            withCredentials: true,
-        });
-
         await page.waitForSelector('#imgSecurityCode');
         const captchaImageSrc = await page.$eval('#imgSecurityCode', img => img.src);
         const captchaImageBuffer = await axios.get(captchaImageSrc, { responseType: 'arraybuffer' });
         await fs.promises.writeFile('image.png', captchaImageBuffer.data);
-        const captchaText = await postImage('./image.png', 'https://lens.google.com/v3/upload');
+        const captchaText = await processImage('./image.png', 'https://lens.google.com/v3/upload');
         await page.type('#ctl00_ucRight1_txtSercurityCode', captchaText);
         await page.keyboard.press('Enter');
         await page.waitForNavigation();
-        console.log('Navigating to the schedule page...');
-        await navigateToSchedulePage(page);
-        console.log('Getting schedule HTML content...');
+        const targetUrl = 'https://sinhvien.epu.edu.vn/LichHocLichThiTuan.aspx';
+
+        while (page.url() !== targetUrl) {
+            await page.goto(targetUrl);
+            retryCount += 1;
+            await page.waitForTimeout(1000);
+
+            if (retryCount > 5) {
+                break;
+            }
+        }
+        console.log('Đang lấy dữ liệu...');
         const scheduleHtmlContent = await getScheduleHtmlContent(page);
         await fs.promises.writeFile('index.html', scheduleHtmlContent);
-        console.log('Process completed successfully!');
+        console.log('Lấy dữ liệu thành công!');
     } catch (error) {
-        console.error('Error in main function:');
+        console.error('Lỗi không xác định');
+        console.log('Đang đóng trình duyệt...')
         await browser.close();
+        console.log('Đang thử lại...')
         main();
     } finally {
         await browser.close();
