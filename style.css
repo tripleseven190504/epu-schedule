@@ -32,11 +32,24 @@ table {
 }
 
 td div {
+    background-color: #ddebf7;
     padding: 5px;
     box-shadow: 3px 3px 10px rgb(131, 131, 131);
     margin-bottom: 5px;
 }
 
-.div-LichHoc {
-    background-color: #ddebf7;
+button {
+    background-color: #0070c0;
+    color: #f8f8f2;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: rgb(83, 128, 115);
+    color: yellow !important;
 }
