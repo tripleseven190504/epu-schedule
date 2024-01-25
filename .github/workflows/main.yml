@@ -36,6 +36,9 @@ jobs:
         run: |
           echo "Cập nhật vào: $(TZ='Asia/Ho_Chi_Minh' date '+%H:%M - %d/%m')" >> index.html
           echo "  " >> index.html
+          cp index.html ..
+          git checkout page
+          mv ../index.html .
           git add .
           git commit -m "Update index.html" || echo "No changes to commit"
-          git push
+          git push origin page
