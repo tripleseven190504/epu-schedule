@@ -14,6 +14,17 @@ th {
     color: white;
 }
 
+.container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    align-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
 td {
     border: 1px solid rgb(218, 215, 215);
     padding-right: 3px;
