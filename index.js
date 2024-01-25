@@ -89,14 +89,9 @@ const main = async () => {
         await fs.promises.writeFile('image.png', captchaImageBuffer.data);
         const captchaText = await processImage('./image.png', 'https://lens.google.com/v3/upload');
         await page.type('#ctl00_ucRight1_txtSercurityCode', captchaText);
-        await new Promise(resolve => setTimeout(resolve, timeoutInMilliseconds));
-        await page.waitForTimeout(500);
+        await page.waitForTimeout(1000);
         await page.keyboard.press('Enter');
-        await new Promise(resolve => setTimeout(resolve, 5000));
-        const currentUrl = page.url();
-        if (currentUrl === 'https://sinhvien.epu.edu.vn/') {
-            await browser.close();
-        }
+        await page.waitForNavigation();
         const targetUrl = 'https://sinhvien.epu.edu.vn/LichHocLichThiTuan.aspx';
         let retryCount = 1;
         while (page.url() !== targetUrl) {
