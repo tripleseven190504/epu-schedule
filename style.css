@@ -22,7 +22,7 @@ th {
     align-content: center;
     align-items: center;
     flex-wrap: nowrap;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 td {
