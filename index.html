@@ -140,8 +140,13 @@
             <div class="container">
                 <button id="tuanNayButton" onclick="chuyenTrang('truoc')">Tuần này</button>
                 <button id="tuanSauButton" onclick="chuyenTrang('sau')">Tuần sau</button>
+                <button id="xemDiem">Xem điểm</button>
             </div>
-
+            <script>
+                document.getElementById("xemDiem").addEventListener("click", function() {
+                    window.location.href = "https://linhcute.shop/scores.html";
+                });
+            </script>
             <script>
                 var noiDungTuanNay = `
                 
@@ -411,5 +416,5 @@
             </script>
         </body>
     </html>
-    Cập nhật vào: 11:36 - 26/01
+    Cập nhật vào: 12:30 - 26/01
   
