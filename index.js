@@ -19,7 +19,8 @@ async function getScheduleHtmlContent(page) {
     <html lang="vi">
         <head>
             <meta charset="UTF-8">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tripleseven190504/epu-schedule@page/style.css">
+            <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tripleseven190504/epu-schedule@page/style.css"> -->
+            <link rel="stylesheet" href="./style.css">
             <link rel="icon" href="https://raw.githubusercontent.com/tripleseven190504/epu-schedule/page/favicon.ico" type="image/x-icon">
             <title>EPU Schedule</title>
         </head>
