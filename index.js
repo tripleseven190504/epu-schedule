@@ -12,7 +12,7 @@ async function getScheduleHtmlContent(page) {
     await page.click('#ctl00_ContentPlaceHolder_btnSau');
     await page.waitForTimeout(3000);
     const nextscheduleElement = await page.$('.div-ChiTietLich');
-    const nextScheduleContent = await page.evaluate(nextscheduleElement => {
+    const nextScheduleHtmlContent = await page.evaluate(nextscheduleElement => {
         return nextscheduleElement ? nextscheduleElement.innerHTML : null;
     }, nextscheduleElement);
     const finalHtmlContent = `
