@@ -12,7 +12,7 @@ async function getScheduleHtmlContent(page) {
     await page.click('#ctl00_ContentPlaceHolder_btnSau');
     await page.waitForTimeout(3000);
     const nextscheduleElement = await page.$('.div-ChiTietLich');
-    const nextScheduleHtmlContent = await page.evaluate(nextscheduleElement => {
+    const nextScheduleContent = await page.evaluate(nextscheduleElement => {
         return nextscheduleElement ? nextscheduleElement.innerHTML : null;
     }, nextscheduleElement);
     const finalHtmlContent = `
@@ -36,7 +36,7 @@ async function getScheduleHtmlContent(page) {
             </div>
             <script>
                 document.getElementById("xemDiem").addEventListener("click", function() {
-                    window.location.href = "https://linhcute.shop/scores.html";
+                    window.location.href = "https://linhcute.shop/scores";
                 });
             </script>
             <script>
