@@ -1,16 +1,16 @@
 
-    <!DOCTYPE html>
-    <html lang="vi">
+        <!DOCTYPE html>
+        <html lang="vi">
         <head>
             <meta charset="UTF-8">
-            <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tripleseven190504/epu-schedule@page/style.css"> -->
-            <link rel="stylesheet" href="./style.css">
-            <link rel="icon" href="https://raw.githubusercontent.com/tripleseven190504/epu-schedule/page/favicon.ico" type="image/x-icon">
             <title>EPU Schedule</title>
+            <link rel="stylesheet" href="./style.css">
+            <link rel="stylesheet" href="https://sinhvien.epu.edu.vn/css/mainpage/stylePhongDaotao.css">
+            <link rel="icon" href="./favicon.ico" type="image/x-icon">
         </head>
         <body>
-            <div id="noiDungDiv">
-            
+        <div id="noiDungDiv">
+        
             <table style="width: 100%; background-color: White;" border="1">
                 <tbody><tr>
                     <th style="width: 50px;">
@@ -136,20 +136,18 @@
             </tbody></table>
           
         
-            </div>
-            <div class="container">
-                <button id="tuanNayButton" onclick="chuyenTrang('truoc')">Tuần này</button>
-                <button id="tuanSauButton" onclick="chuyenTrang('sau')">Tuần sau</button>
-                <button id="xemDiem">Xem điểm</button>
-            </div>
-            <script>
-                document.getElementById("xemDiem").addEventListener("click", function() {
-                    window.location.href = "https://linhcute.shop/scores";
-                });
-            </script>
-            <script>
-                var noiDungTuanNay = `
-                
+        </div>
+        <div class="container">
+            <button id="tuanNayButton" onclick="chuyenTrang('truoc')">Tuần này</button>
+            <button id="tuanSauButton" onclick="chuyenTrang('sau')">Tuần sau</button>
+            <button id="xemDiem" onclick="chuyenTrang('diem')">Xem điểm</button>
+        </div>
+        <script>
+            const chuyenTrang = (trang) => {
+                const noiDungDiv = document.getElementById('noiDungDiv');
+                if (trang === 'truoc') {
+                    noiDungDiv.innerHTML = `
+                    
             <table style="width: 100%; background-color: White;" border="1">
                 <tbody><tr>
                     <th style="width: 50px;">
@@ -275,9 +273,10 @@
             </tbody></table>
           
         
-                `;
-                var noiDungTuanSau = `
-                
+                    `;
+                } else if (trang === 'sau') {
+                    noiDungDiv.innerHTML = `
+                    
             <table style="width: 100%; background-color: White;" border="1">
                 <tbody><tr>
                     <th style="width: 50px;">
@@ -403,18 +402,1501 @@
             </tbody></table>
           
         
-                `;
-                function chuyenTrang(huong) {
-                    var noiDungMoi;
-                    if (huong === 'sau') {
-                        noiDungMoi = noiDungTuanSau;
-                    } else if (huong === 'truoc') {
-                        noiDungMoi = noiDungTuanNay;
-                    }
-                    document.getElementById("noiDungDiv").innerHTML = noiDungMoi;
+                    `;
+                } else if (trang === 'diem') {
+                    noiDungDiv.innerHTML = `
+                    
+        <table class="grid grid-color2 tblKetQuaHocTap">
+        
+    <tbody><tr class="tblHeader">
+        <th rowspan="2">
+            STT
+        </th>
+        <th rowspan="2">
+            Tên môn học
+        </th>
+        <th rowspan="2">
+            Mã lớp
+        </th>
+        <th rowspan="2">
+            TC
+        </th>
+        <th colspan="4">
+            Thường xuyên
+        </th>
+        <th rowspan="2">
+            Trung bình <br> Thường kỳ
+        </th>
+        <th rowspan="2">
+            Được dự thi
+        </th>
+        <th colspan="2">
+            Kết thúc        
+        </th>
+        <th rowspan="2" style="min-width:50px;">
+            Điểm <br> tổng kết
+        </th>
+        <th rowspan="2">Xếp loại</th>
+        <th rowspan="2" style="min-width:50px;">Ghi chú</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>Lần 1</th>
+        <th>Lần 2</th>
+    </tr>
+
+        <tr class="quater">
+            <td colspan="15" style="border:none">HK1 (2022-2023)</td>
+        </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">1</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Xác suất thống kê</td>
+                    <td>0101003657102</td>
+                    <td>2</td>
+
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        5.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        5.90
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [C  - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">2</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Pháp luật đại cương</td>
+                    <td>010100201851</td>
+                    <td>2</td>
+
+                    <td class="markCell chuaxn ">
+                        8.90
+                    </td>
+                    <td class="markCell chuaxn ">
+                        8.90
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        8.90
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        8.30
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [B+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">3</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Toán cao cấp 2</td>
+                    <td>010100454639</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        4.00
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        9.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        6.50
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        6.90
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [C+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">4</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Triết học Mác - Lênin</td>
+                    <td>010100392363</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.70
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [B  - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+        <tr class="quater">
+            <td colspan="15" style="border:none">HK2 (2022-2023)</td>
+        </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">5</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Giáo dục thể chất 1</td>
+                    <td>010100080103</td>
+                    <td>1</td>
+
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [B+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">6</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Giáo dục thể chất 2</td>
+                    <td>010100080855</td>
+                    <td>1</td>
+
+                    <td class="markCell chuaxn ">
+                        10.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        10.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.90
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [B  - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">7</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Giáo dục quốc phòng 1</td>
+                    <td>010100434222</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        7.50
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.20
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [B  - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">8</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Giáo dục thể chất 3</td>
+                    <td>010100081303</td>
+                    <td>1</td>
+
+                    <td class="markCell chuaxn ">
+                        10.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        10.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.90
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [B  - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">9</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Giáo dục quốc phòng 2</td>
+                    <td>010100434336</td>
+                    <td>2</td>
+
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        6.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        6.60
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [C+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">10</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Giáo dục thể chất 4</td>
+                    <td>010100081655</td>
+                    <td>1</td>
+
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [B+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">11</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Giáo dục quốc phòng 3</td>
+                    <td>010100434422</td>
+                    <td>2</td>
+
+                    <td class="markCell chuaxn ">
+                        6.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        6.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        6.70
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [C+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">12</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Giáo dục quốc phòng 4</td>
+                    <td>010100434536</td>
+                    <td>4</td>
+
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        5.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        5.60
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [C  - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">13</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Tiếng Anh 1</td>
+                    <td>010100313703</td>
+                    <td>4</td>
+
+                    <td class="markCell chuaxn ">
+                        6.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        6.50
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        4.00
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        4.80
+                    </span></td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [D  - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">14</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Kinh tế chính trị Mác - Lênin</td>
+                    <td>010100392518</td>
+                    <td>2</td>
+
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        7.50
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        7.80
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        6.50
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        6.90
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [C+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">15</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Năng lượng cho phát triển bền vững</td>
+                    <td>010100455277</td>
+                    <td>2</td>
+
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [B  - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">16</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Quản trị học</td>
+                    <td>010100224424</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        4.50
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        5.30
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [D+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">17</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Ứng dụng Công nghệ thông tin cơ bản</td>
+                    <td>010100454711</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.50
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.70
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [B  - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+        <tr class="quater">
+            <td colspan="15" style="border:none">HK1 (2023-2024)</td>
+        </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">18</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Tài chính-tiền tệ</td>
+                    <td>010100235403</td>
+                    <td>2</td>
+
+                    <td class="markCell chuaxn ">
+                        9.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        9.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        9.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        6.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        6.90
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [C+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">19</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Kinh tế vĩ mô</td>
+                    <td>010100122314</td>
+                    <td>2</td>
+
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        8.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        5.00
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        5.90
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [C  - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">20</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Thống kê ứng dụng trong kinh doanh</td>
+                    <td>010100455711</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn ">
+                        5.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        5.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        5.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        7.50
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        6.80
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [C+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">21</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Kinh tế vi mô</td>
+                    <td>010100121602</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        8.50
+                    </td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        8.10
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [B+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">22</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Tiếng Anh 2</td>
+                    <td>010100454945</td>
+                    <td>4</td>
+
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        6.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">23</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Chủ nghĩa xã hội khoa học</td>
+                    <td>010100392634</td>
+                    <td>2</td>
+
+                    <td class="markCell chuaxn ">
+                        7.50
+                    </td>
+                    <td class="markCell chuaxn ">
+                        7.50
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">24</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Nguyên lý kế toán</td>
+                    <td>010100183812</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn ">
+                        7.00
+                    </td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/EnableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        4.50
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn ">
+                        5.30
+                    </td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        [D+ - ]
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+        <tr class="quater">
+            <td colspan="15" style="border:none">HK2 (2023-2024)</td>
+        </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">25</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Kế toán doanh nghiệp</td>
+                    <td>010100102301</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/DisableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">26</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Quản lý tài chính</td>
+                    <td>010100220821</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/DisableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">27</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Tiếng Anh chuyên ngành Kiểm toán</td>
+                    <td>010100321601</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/DisableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">28</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Tư tưởng Hồ Chí Minh</td>
+                    <td>010100350539</td>
+                    <td>2</td>
+
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/DisableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">29</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Đề án môn học ngành Kế toán - Kiểm toán</td>
+                    <td>010100468102</td>
+                    <td>3</td>
+
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/DisableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow">
+                    <td style="border-left:none">30</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Kiểm toán căn bản và đạo đức nghề nghiệp</td>
+                    <td>010100468901</td>
+                    <td>4</td>
+
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/DisableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+                <tr class="markRow even_tr">
+                    <td style="border-left:none">31</td>
+                    <td style="text-align:left;padding-left:10px;font-weight:bold;">Kinh doanh và Công nghệ (BT-ACCA Diploma)</td>
+                    <td>010100476402</td>
+                    <td>2</td>
+
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+
+                <td class="markCell chuaxn  text-center">
+                    
+                            <img src="https://sinhvien.epu.edu.vn/Resource/Icon/DisableSmall.png" width="20px" height="20px">
+                    
+                </td>
+
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;" class="markCell chuaxn "><span style="color:Red">
+                        
+                    </span></td>
+                    <td style="font-weight:bold;width:100px" class="">
+                        
+                    </td>
+                    <td style="border-right:none">
+                        
+                    </td>
+
+            </tr>
+
+</tbody>
+        </table>
+    
+                    `;
                 }
-            </script>
+            }
+        </script>
         </body>
-    </html>
-    Cập nhật vào: 08:22 - 28/01
+        Cập nhật vào: 12:19 - 28/01
   
