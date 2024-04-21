@@ -30,8 +30,8 @@ jobs:
           git config --global user.email "tripleseven190504@gmail.com"
           git pull
           npm install
-          npx @puppeteer/browsers install chrome@123
-          npx @puppeteer/browsers install chromedriver@123
+          npx @puppeteer/browsers install chrome@115
+          npx @puppeteer/browsers install chromedriver@115
           node index.js
 
       - name: Commit and push
