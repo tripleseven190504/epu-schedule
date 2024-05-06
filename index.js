@@ -142,6 +142,7 @@ const main = async () => {
         await fs.promises.writeFile('index.html', finalHtmlContent);
         console.log('Hoàn tất!');
     } catch (error) {
+        console.log(error);
         console.error('Lỗi không xác định');
         console.log('Đang đóng trình duyệt...')
         await browser.close();
