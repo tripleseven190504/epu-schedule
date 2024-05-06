@@ -81,6 +81,7 @@ const main = async () => {
     try {
         await page.goto('https://sinhvien.epu.edu.vn/');
         console.log("Đã truy cập website");
+        await page.waitForSelector("#ctl00_ucRight1_txtMaSV");
         await page.type('#ctl00_ucRight1_txtMaSV', process.env.USERNAME);
         console.log("Đã điền tài khoản");
         await page.type('#ctl00_ucRight1_txtMatKhau', process.env.PASSWORD);
