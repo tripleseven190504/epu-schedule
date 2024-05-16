@@ -2,9 +2,9 @@ const puppeteer = require("puppeteer-extra");
 const axios = require("axios");
 const fs = require("fs");
 const FormData = require("form-data");
-const StealthPlugin = require("puppeteer-extra-plugin-stealth");
-puppeteer.use(StealthPlugin());
+const UserAgent = require("user-agents");
 
+puppeteer.use(require("puppeteer-extra-plugin-stealth")());
 async function getScheduleHtmlContent(page) {
 	const targetUrl = "https://sinhvien.epu.edu.vn/LichHocLichThiTuan.aspx";
 	let retryCount = 1;
@@ -12,11 +12,11 @@ async function getScheduleHtmlContent(page) {
 		await page.goto(targetUrl);
 		console.log("Đang lấy lịch học lần thứ ", retryCount);
 		retryCount += 1;
-		await page.waitForTimeout(1000);
 		if (retryCount > 5) {
 			break;
 		}
 	}
+	await page.waitForSelector(".div-ChiTietLich");
 	const scheduleElement = await page.$(".div-ChiTietLich");
 	const scheduleHtmlContent = await page.evaluate((scheduleElement) => {
 		return scheduleElement ? scheduleElement.innerHTML : null;
@@ -25,7 +25,8 @@ async function getScheduleHtmlContent(page) {
 }
 async function nextWeek(page) {
 	await page.click("#ctl00_ContentPlaceHolder_btnSau");
-	await page.waitForTimeout(3000);
+	// await page.waitForTimeout(3000);
+	await page.waitForNavigation({ waitUntil: "domcontentloaded" });
 	const nextscheduleElement = await page.$(".div-ChiTietLich");
 	const nextScheduleHtmlContent = await page.evaluate((nextscheduleElement) => {
 		return nextscheduleElement ? nextscheduleElement.innerHTML : null;
@@ -37,13 +38,15 @@ async function getScoresHtmlContent(page) {
 	let retry = 1;
 	while (page.url() !== scoreUrl) {
 		await page.goto(scoreUrl);
+		await page.waitForSelector(".tblKetQuaHocTap");
 		console.log("Đang lấy điểm lần thứ ", retry);
 		retry += 1;
-		await page.waitForTimeout(1000);
+		// await page.waitForTimeout(1000);
 		if (retry > 5) {
 			break;
 		}
 	}
+	// await page.waitForSelector(".tblKetQuaHocTap");
 	const scoresElement = await page.$(".tblKetQuaHocTap");
 	const scoresHtmlContent = await page.evaluate((scoresElement) => {
 		return scoresElement ? scoresElement.innerHTML : null;
@@ -58,11 +61,18 @@ async function getScoresHtmlContent(page) {
     `;
 	return finalScoreHtmlContent;
 }
-
+const userAgent = new UserAgent({
+	deviceCategory: "desktop",
+	platform: "Linux x86_64",
+});
 const main = async () => {
 	const browser = await puppeteer.launch({
 		headless: "new",
-		args: ["--disable-infobars"],
+		args: [
+			"--disable-infobars",
+			"--user-agent=" + userAgent.toString(),
+			"--disable-notifications",
+		],
 	});
 	const page = await browser.newPage();
 	const processImage = async (imagePath, endpointUrl) => {
@@ -112,9 +122,9 @@ const main = async () => {
 		);
 		await page.type("#ctl00_ucRight1_txtSercurityCode", captchaText);
 		console.log("Đang điền captcha");
-		await page.waitForTimeout(1500);
+		// await page.waitForTimeout(1500);
 		await page.keyboard.press("Enter");
-		await page.waitForTimeout(3000);
+		await page.waitForNavigation();
 		console.log("Đang lấy dữ liệu...");
 		const scheduleHtmlContent = await getScheduleHtmlContent(page);
 		const nextScheduleHtmlContent = await nextWeek(page);
