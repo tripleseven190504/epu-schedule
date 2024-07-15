@@ -1,45 +1,45 @@
-const puppeteer = require("puppeteer-extra");
-const axios = require("axios");
-const fs = require("fs");
-const FormData = require("form-data");
-const UserAgent = require("user-agents");
+const puppeteer = require('puppeteer-extra');
+const axios = require('axios');
+const fs = require('fs');
+const FormData = require('form-data');
+const UserAgent = require('user-agents');
 
-puppeteer.use(require("puppeteer-extra-plugin-stealth")());
+puppeteer.use(require('puppeteer-extra-plugin-stealth')());
 async function getScheduleHtmlContent(page) {
-	const targetUrl = "https://sinhvien.epu.edu.vn/LichHocLichThiTuan.aspx";
+	const targetUrl = 'https://sinhvien.epu.edu.vn/LichHocLichThiTuan.aspx';
 	let retryCount = 1;
 	while (page.url() !== targetUrl) {
 		await page.goto(targetUrl);
-		console.log("Đang lấy lịch học lần thứ ", retryCount);
+		console.log('Đang lấy lịch học lần thứ ', retryCount);
 		retryCount += 1;
 		if (retryCount > 5) {
 			break;
 		}
 	}
-	await page.waitForSelector(".div-ChiTietLich");
-	const scheduleElement = await page.$(".div-ChiTietLich");
+	await page.waitForSelector('.div-ChiTietLich');
+	const scheduleElement = await page.$('.div-ChiTietLich');
 	const scheduleHtmlContent = await page.evaluate((scheduleElement) => {
 		return scheduleElement ? scheduleElement.innerHTML : null;
 	}, scheduleElement);
 	return scheduleHtmlContent;
 }
 async function nextWeek(page) {
-	await page.click("#ctl00_ContentPlaceHolder_btnSau");
+	await page.click('#ctl00_ContentPlaceHolder_btnSau');
 	// await page.waitForTimeout(3000);
-	await page.waitForNavigation({ waitUntil: "domcontentloaded" });
-	const nextscheduleElement = await page.$(".div-ChiTietLich");
+	await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
+	const nextscheduleElement = await page.$('.div-ChiTietLich');
 	const nextScheduleHtmlContent = await page.evaluate((nextscheduleElement) => {
 		return nextscheduleElement ? nextscheduleElement.innerHTML : null;
 	}, nextscheduleElement);
 	return nextScheduleHtmlContent;
 }
 async function getScoresHtmlContent(page) {
-	const scoreUrl = "https://sinhvien.epu.edu.vn/Xemdiem.aspx";
+	const scoreUrl = 'https://sinhvien.epu.edu.vn/Xemdiem.aspx';
 	let retry = 1;
 	while (page.url() !== scoreUrl) {
 		await page.goto(scoreUrl);
-		await page.waitForSelector(".tblKetQuaHocTap");
-		console.log("Đang lấy điểm lần thứ ", retry);
+		await page.waitForSelector('.tblKetQuaHocTap');
+		console.log('Đang lấy điểm lần thứ ', retry);
 		retry += 1;
 		// await page.waitForTimeout(1000);
 		if (retry > 5) {
@@ -47,7 +47,7 @@ async function getScoresHtmlContent(page) {
 		}
 	}
 	// await page.waitForSelector(".tblKetQuaHocTap");
-	const scoresElement = await page.$(".tblKetQuaHocTap");
+	const scoresElement = await page.$('.tblKetQuaHocTap');
 	const scoresHtmlContent = await page.evaluate((scoresElement) => {
 		return scoresElement ? scoresElement.innerHTML : null;
 	}, scoresElement);
@@ -62,31 +62,30 @@ async function getScoresHtmlContent(page) {
 	return finalScoreHtmlContent;
 }
 const userAgent = new UserAgent({
-	deviceCategory: "desktop",
-	platform: "Linux x86_64",
+	deviceCategory: 'desktop',
+	platform: 'Linux x86_64',
 });
 const main = async () => {
 	const browser = await puppeteer.launch({
-		headless: "new",
+		headless: false,
 		args: [
-			"--disable-infobars",
-			"--user-agent=" + userAgent.toString(),
-			"--disable-notifications",
+			'--disable-infobars',
+			'--user-agent=' + userAgent.toString(),
+			'--disable-notifications',
 		],
 	});
 	const page = await browser.newPage();
 	const processImage = async (imagePath, endpointUrl) => {
 		const formData = new FormData();
 		const data = await fs.promises.readFile(imagePath);
-		console.log("Đang đọc captcha", imagePath);
-		formData.append("encoded_image", data, "image.jpg");
-
+		console.log('Đang đọc captcha', imagePath);
+		formData.append('encoded_image', data, 'image.jpg');
 		const response = await axios.post(endpointUrl, formData, {
 			headers: {
 				...formData.getHeaders(),
 			},
 		});
-		console.log("Đọc captcha thành công");
+		console.log('Đọc captcha thành công');
 		const regexPattern = /",\[\[(\[".*?"\])\],"/;
 		const match = response.data.match(regexPattern);
 		if (match && match[1]) {
@@ -98,34 +97,36 @@ const main = async () => {
 		}
 	};
 	try {
-		await page.goto("https://sinhvien.epu.edu.vn/");
-		console.log("Đã truy cập website");
+		await page.goto('https://sinhvien.epu.edu.vn/');
+		console.log('Đã truy cập website');
 		const userAgent = await browser.userAgent();
-		console.log("User Agent hiện tại:", userAgent);
-		await page.type("#ctl00_ucRight1_txtMaSV", process.env.USERNAME);
-		console.log("Đã điền tài khoản");
-		await page.type("#ctl00_ucRight1_txtMatKhau", process.env.PASSWORD);
-		console.log("Đã điền mật khẩu");
-		await page.waitForSelector("#imgSecurityCode");
-		console.log("Đã phát hiện captcha");
-		const captchaImageSrc = await page.$eval(
-			"#imgSecurityCode",
-			(img) => img.src,
-		);
-		const captchaImageBuffer = await axios.get(captchaImageSrc, {
-			responseType: "arraybuffer",
-		});
-		await fs.promises.writeFile("image.png", captchaImageBuffer.data);
+		console.log('User Agent hiện tại:', userAgent);
+		await page.type('#ctl00_ucRight1_txtMaSV', process.env.USERNAME);
+		console.log('Đã điền tài khoản');
+		await page.type('#ctl00_ucRight1_txtMatKhau', process.env.PASSWORD);
+		console.log('Đã điền mật khẩu');
+		await page.waitForSelector('#imgSecurityCode');
+		console.log('Đã phát hiện captcha');
+		const imageCaptchaElement = await page.$('#imgSecurityCode');
+		await imageCaptchaElement.screenshot({ path: 'image.png' });
+		// const captchaImageSrc = await page.$eval(
+		// 	'#imgSecurityCode',
+		// 	(img) => img.src,
+		// );
+		// const captchaImageBuffer = await axios.get(captchaImageSrc, {
+		// 	responseType: 'arraybuffer',
+		// });
+		// await fs.promises.writeFile('image.png', captchaImageBuffer.data);
 		const captchaText = await processImage(
-			"./image.png",
-			"https://lens.google.com/v3/upload",
+			'./image.png',
+			'https://lens.google.com/v3/upload',
 		);
-		await page.type("#ctl00_ucRight1_txtSercurityCode", captchaText);
-		console.log("Đang điền captcha");
+		await page.type('#ctl00_ucRight1_txtSercurityCode', captchaText);
+		console.log('Đang điền captcha');
 		// await page.waitForTimeout(1500);
-		await page.keyboard.press("Enter");
+		await page.keyboard.press('Enter');
 		await page.waitForNavigation();
-		console.log("Đang lấy dữ liệu...");
+		console.log('Đang lấy dữ liệu...');
 		const scheduleHtmlContent = await getScheduleHtmlContent(page);
 		const nextScheduleHtmlContent = await nextWeek(page);
 		const scoresHtmlContent = await getScoresHtmlContent(page);
@@ -168,15 +169,15 @@ const main = async () => {
         </script>
         </body>
         `;
-		await fs.promises.writeFile("index.html", finalHtmlContent);
-		console.log("Hoàn tất!");
+		await fs.promises.writeFile('index.html', finalHtmlContent);
+		console.log('Hoàn tất!');
 	} catch (error) {
-		console.log(error);
-		console.error("Lỗi không xác định");
-		console.log("Đang đóng trình duyệt...");
-		await browser.close();
-		console.log("Đang thử lại...");
-		main();
+		// console.log(error);
+		console.error('Lỗi không xác định');
+		console.log('Đang đóng trình duyệt...');
+		// await browser.close();
+		console.log('Đang thử lại...');
+		// main();
 	} finally {
 		await browser.close();
 	}
