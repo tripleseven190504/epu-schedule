@@ -67,7 +67,7 @@ const userAgent = new UserAgent({
 });
 const main = async () => {
 	const browser = await puppeteer.launch({
-		headless: false,
+		headless: 'new',
 		args: [
 			'--disable-infobars',
 			'--user-agent=' + userAgent.toString(),
